@@ -1,5 +1,6 @@
 package com.example.retrofittesting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
 
     @Override
     public void onItemClick(Users user) {
-        Toast.makeText(this, "Id: " +user.getId() + " Name: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Id: " +user.getId() + " Name: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, UserDetailsActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }
