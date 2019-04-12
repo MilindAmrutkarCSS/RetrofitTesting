@@ -1,7 +1,9 @@
 package com.example.retrofittesting;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
     private UserDataAdapter userDataAdapter;
 
     @Override
@@ -41,12 +46,14 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Call<List<Users>> call = jsonPlaceHolderApi.getUserList();
-
+        progressBar.setVisibility(View.VISIBLE);
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                progressBar.setVisibility(View.GONE);
                 if (!response.isSuccessful()) {
                     //textViewResult.setText("Code: " + response.code());
+
                     return;
                 }
 
@@ -56,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(userDataAdapter);
-
 
                 /*for (Users user: users) {
                     String content = "";
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
                 //textViewResult.setText(t.getMessage());
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
