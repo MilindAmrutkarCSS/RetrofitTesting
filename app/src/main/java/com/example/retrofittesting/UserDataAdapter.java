@@ -1,6 +1,7 @@
 package com.example.retrofittesting;
 
 import android.content.Context;
+import android.os.IInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,12 @@ public class UserDataAdapter extends RecyclerView.Adapter<UserDataAdapter.ViewHo
 
     private Context context;
     private List<Users> usersList;
+    private IUserDetails userDetailsListener;
 
     public UserDataAdapter(Context context, List<Users> usersList) {
         this.context = context;
         this.usersList = usersList;
+        this.userDetailsListener = (IUserDetails) context;
     }
 
     @NonNull
@@ -41,6 +44,13 @@ public class UserDataAdapter extends RecyclerView.Adapter<UserDataAdapter.ViewHo
         holder.tvGender.setText(users.getGender());
         holder.tvEmail.setText(users.getEmail());
         Glide.with(context).load(users.getImageUrl()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userDetailsListener.onItemClick(users);
+            }
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.retrofittesting;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IUserDetails{
 
 
     @BindView(R.id.recyclerView)
@@ -68,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
                     //textViewResult.append(content);
                 }*/
-
-
             }
 
             @Override
@@ -77,5 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 //textViewResult.setText(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Users user) {
+        Toast.makeText(this, "Id: " +user.getId() + " Name: " + user.getFirstName(), Toast.LENGTH_SHORT).show();
     }
 }
