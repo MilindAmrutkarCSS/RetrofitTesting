@@ -1,4 +1,5 @@
 package com.example.retrofittesting;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,9 +20,9 @@ public class Users {
     @SerializedName("gender")
     @Expose
     private String gender;
-    @SerializedName("ip_address")
+    @SerializedName("image_url")
     @Expose
-    private String ipAddress;
+    private String imageUrl;
 
     public Integer getId() {
         return id;
@@ -63,12 +64,12 @@ public class Users {
         this.gender = gender;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
 }
