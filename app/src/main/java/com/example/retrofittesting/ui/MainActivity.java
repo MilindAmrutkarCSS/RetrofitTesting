@@ -1,11 +1,15 @@
-package com.example.retrofittesting;
+package com.example.retrofittesting.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import com.example.retrofittesting.interfaces.IUserDetails;
+import com.example.retrofittesting.rest.ApiClient;
+import com.example.retrofittesting.R;
+import com.example.retrofittesting.adapters.UserDataAdapter;
+import com.example.retrofittesting.model.Users;
 
 import java.util.List;
 
@@ -17,10 +21,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements IUserDetails{
+public class MainActivity extends AppCompatActivity implements IUserDetails {
 
 
     @BindView(R.id.recyclerView)
@@ -37,50 +39,24 @@ public class MainActivity extends AppCompatActivity implements IUserDetails{
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.mocky.io/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        Call<List<Users>> call = jsonPlaceHolderApi.getUserList();
-        progressBar.setVisibility(View.VISIBLE);
-        call.enqueue(new Callback<List<Users>>() {
+        ApiClient.getInstance().getUserList().enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
                 progressBar.setVisibility(View.GONE);
                 if (!response.isSuccessful()) {
                     //textViewResult.setText("Code: " + response.code());
-
                     return;
                 }
 
                 List<Users> users = response.body();
-
                 userDataAdapter = new UserDataAdapter(MainActivity.this, users);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(userDataAdapter);
-
-                /*for (Users user: users) {
-                    String content = "";
-                    content += "ID: " + user.getId() + "\n";
-                    content += "First Name: " + user.getFirstName() + "\n";
-                    content += "Last Name: " + user.getLastName() + "\n";
-                    content += "Email Id: " + user.getEmail() + "\n";
-                    content += "Gender: " + user.getGender() + "\n";
-                    content += "ImageUrl: " + user.getImageUrl() + "\n\n\n";
-
-                    //textViewResult.append(content);
-                }*/
             }
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                //textViewResult.setText(t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });

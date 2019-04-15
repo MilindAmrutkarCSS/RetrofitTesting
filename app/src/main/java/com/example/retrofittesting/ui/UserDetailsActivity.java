@@ -1,4 +1,4 @@
-package com.example.retrofittesting;
+package com.example.retrofittesting.ui;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.retrofittesting.R;
+import com.example.retrofittesting.model.Users;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.example.retrofittesting;
+package com.example.retrofittesting.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.retrofittesting.R;
+import com.example.retrofittesting.interfaces.IUserDetails;
+import com.example.retrofittesting.model.Users;
 
 import java.util.List;
 
