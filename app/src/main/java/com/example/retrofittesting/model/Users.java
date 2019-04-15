@@ -27,6 +27,8 @@ public class Users implements Parcelable {
     @Expose
     private String imageUrl;
 
+    public Users() {
+    }
 
     protected Users(Parcel in) {
         if (in.readByte() == 0) {

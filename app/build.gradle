@@ -17,7 +17,8 @@ android {
             buildConfigField('String', 'BASE_URL', '"http://www.mocky.io/v2/"')
         }
         debug {
-            buildConfigField('String', 'BASE_URL', '"http://www.mocky.io/v2/"')
+            //buildConfigField('String', 'BASE_URL', '"http://www.mocky.io/v2/"')
+            buildConfigField('String', 'BASE_URL', '"https://testapi.io/api/tusharpingale04/milind/"')
         }
     }
 
